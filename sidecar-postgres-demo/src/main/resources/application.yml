@@ -1,0 +1,49 @@
+spring:
+    autoconfigure:
+        exclude:
+            - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    datasource:
+        name: db_postgres
+        url: jdbc:postgresql://%s:%s/db_postgres
+        username: postgres
+        password: admin
+        driverClassName: org.postgresql.Driver
+
+    jpa:
+        database: POSTGRESQL
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        generate-ddl: false
+        hibernate:
+            ddl-auto: update
+
+server:
+    port: 8080
+
+server.servlet-path: /
+management.context-path: /admin
+
+sidecar.appName: POSTGRES-DB_REPLICATION
+
+endpoints:
+    enabled: false
+    info:
+        enabled: true
+    health:
+        enabled: true
+        sensitive: false
+    metrics:
+        enabled: true
+
+eureka:
+    client:
+        registerWithEureka: false
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: http://localhost:8000/eureka/
+
+info:
+    app:
+        name: @project.artifactId@
+    build:
+        version: @project.version@
+
